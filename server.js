@@ -29,16 +29,25 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+
 // Servir les fichiers statiques
 app.use('/', express.static(PUBLIC_DIR));
 app.use('/uploads', express.static(UPLOADS_DIR));
 
-// === API ===
 
-// Ajouter un TP
+// =======================
+//   API MULTI-USER
+// =======================
+
+// ➤ Ajouter un TP
 app.post('/api/tps', upload.array('files'), (req, res) => {
   try {
-    const { matiere, titre, description, date, statut } = req.body;
+    const { matiere, titre, description, date, statut, user } = req.body;
+
+    if (!user) {
+      return res.status(400).json({ error: "Missing user ID" });
+    }
+
     const files = (req.files || []).map(f => ({
       originalName: f.originalname,
       savedName: f.filename,
@@ -49,6 +58,7 @@ app.post('/api/tps', upload.array('files'), (req, res) => {
 
     const newTp = {
       id: Date.now(),
+      user,   // ← مهم
       matiere,
       titre,
       description,
@@ -62,32 +72,48 @@ app.post('/api/tps', upload.array('files'), (req, res) => {
     fs.writeFileSync(DATA_FILE, JSON.stringify(tps, null, 2));
 
     res.status(201).json({ message: 'TP ajouté', tp: newTp });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
-// Lister tous les TPs
+
+// ➤ Lister les TPs d’un seul utilisateur
 app.get('/api/tps', (req, res) => {
   try {
+    const user = req.query.user;
+
+    if (!user) {
+      return res.status(400).json({ error: "Missing user ID" });
+    }
+
     const tps = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    tps.sort((a, b) => new Date(b.date) - new Date(a.date));
-    res.json(tps);
+    const filtered = tps.filter(tp => tp.user === user);
+
+    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    res.json(filtered);
+
   } catch {
     res.status(500).json({ error: 'Erreur lecture tps.json' });
   }
 });
 
-// Supprimer un TP
+
+// ➤ Supprimer un TP d’un utilisateur
 app.delete('/api/tps/:id', (req, res) => {
   try {
     const id = Number(req.params.id);
-    let tps = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    const tp = tps.find(t => t.id === id);
-    if (!tp) return res.status(404).json({ error: 'TP non trouvé' });
+    const user = req.query.user;
 
-    // Supprimer les fichiers du TP
+    let tps = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    const tp = tps.find(t => t.id === id && t.user === user);
+
+    if (!tp) return res.status(404).json({ error: 'TP non trouvé pour cet utilisateur' });
+
+    // delete files
     if (tp.files) {
       tp.files.forEach(f => {
         const p = path.join(UPLOADS_DIR, f.savedName);
@@ -95,13 +121,16 @@ app.delete('/api/tps/:id', (req, res) => {
       });
     }
 
-    tps = tps.filter(t => t.id !== id);
-    fs.writeFileSync(DATA_FILE, JSON.stringify(tps, null, 2));
+    tps = tps.filter(t => !(t.id === id && t.user === user));
 
+    fs.writeFileSync(DATA_FILE, JSON.stringify(tps, null, 2));
     res.json({ message: 'TP supprimé' });
+
   } catch {
     res.status(500).json({ error: 'Erreur suppression' });
   }
 });
 
+
+// Start server
 app.listen(PORT, () => console.log(`✅ Serveur démarré sur http://localhost:${PORT}`));
