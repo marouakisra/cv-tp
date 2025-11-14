@@ -1191,6 +1191,9 @@
             }
         };
 
+        // Variables globales pour la gestion des TPs
+        let selectedFiles = [];
+
         // Gestion de la navigation par boutons
         document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('.nav-btn');
@@ -1264,7 +1267,6 @@
             const fileUploadArea = document.getElementById('fileUploadArea');
             const fileInput = document.getElementById('fileInput');
             const filePreview = document.getElementById('filePreview');
-            let selectedFiles = [];
             
             // Extensions autorisées (incluant maintenant .rar)
             const allowedExtensions = ['.pdf', '.doc', '.docx', '.zip', '.rar', '.java', '.py', '.html', '.css', '.js', '.php', '.sql', '.blend', '.obj', '.fbx', '.stl'];
@@ -1666,58 +1668,13 @@
             localStorage.setItem('tps', JSON.stringify(filteredTps));
             
             // Recharger l'affichage
-            const tpList = document.getElementById('tpList');
-            tpList.innerHTML = '';
-            
-            if (filteredTps.length === 0) {
-                tpList.innerHTML = `
-                    <div class="empty-state">
-                        <p>📝 Aucun TP enregistré pour le moment.</p>
-                        <p>Commencez par ajouter votre premier travail pratique en utilisant le formulaire ci-dessus.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            filteredTps.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            filteredTps.forEach(tp => {
-                const tpCard = document.createElement('div');
-                tpCard.className = 'tp-card';
-                
-                let filesHtml = '';
-                if (tp.files && tp.files.length > 0) {
-                    filesHtml = '<div class="tp-files"><strong>Fichiers:</strong><br>';
-                    tp.files.forEach((file, index) => {
-                        filesHtml += `<a class="file-badge" href="#" data-tp-id="${tp.id}" data-file-index="${index}">${file.name}</a>`;
-                    });
-                    filesHtml += '</div>';
-                }
-                
-                tpCard.innerHTML = `
-                    <h4>${tp.titre}</h4>
-                    <p><strong>Matière:</strong> ${tp.matiere}</p>
-                    <p><strong>Date:</strong> ${new Date(tp.date).toLocaleDateString('fr-FR')}</p>
-                    <p><strong>Statut:</strong> <span class="statut-${tp.statut.replace(' ', '-').toLowerCase()}">${tp.statut}</span></p>
-                    <p>${tp.description}</p>
-                    ${filesHtml}
-                    <div class="tp-actions">
-                        <button class="btn btn-danger" onclick="deleteTp('${tp.id}')">Supprimer</button>
-                    </div>
-                `;
-                document.getElementById('tpList').appendChild(tpCard);
-            });
-            
-            // Réattacher les événements de téléchargement
-            document.querySelectorAll('.file-badge').forEach(badge => {
-                badge.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const tpId = this.getAttribute('data-tp-id');
-                    const fileIndex = parseInt(this.getAttribute('data-file-index'));
-                    downloadFile(tpId, fileIndex);
-                });
-            });
+            const event = new Event('DOMContentLoaded');
+            document.dispatchEvent(event);
         }
+        
+        // جعل الدوال متاحة عالمياً
+        window.deleteTp = deleteTp;
+        window.downloadFile = downloadFile;
     </script>
 </body>
 </html>
