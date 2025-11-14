@@ -5,17 +5,1194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Kisra Maroua</title>
     <style>
-        /* ... (كل الـ CSS السابق يبقى كما هو) ... */
+        /* Styles généraux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Navigation par boutons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 0 20px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #2980b9, #1a252f);
+        }
+        
+        .nav-btn.active {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            transform: scale(1.05);
+        }
+        
+        /* Sections de contenu */
+        .content-section {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* En-tête */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.3);
+            margin-bottom: 20px;
+            object-fit: cover;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #7f8c8d;
+            font-size: 4rem;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        /* Sections */
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* Expériences et formations */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #3498db;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: white;
+            border: 4px solid #3498db;
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+        
+        .timeline-item h3 {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+        
+        .date {
+            color: #7f8c8d;
+            font-weight: 600;
+            margin: 8px 0;
+            display: inline-block;
+            background: #ecf0f1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Compétences */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .skill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Contact */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: #3498db;
+        }
+        
+        /* Projets */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-img {
+            height: 180px;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-content h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        /* Section Matières */
+        .matieres-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .matiere-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .matiere-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .matiere-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .matiere-content {
+            padding: 20px;
+        }
+        
+        .matiere-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .matiere-content li {
+            margin-bottom: 8px;
+        }
+        
+        /* Section TP */
+        .tp-container {
+            margin-top: 30px;
+        }
+        
+        .tp-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .file-upload {
+            border: 2px dashed #3498db;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload:hover {
+            background: #e8f4fc;
+            border-color: #2980b9;
+        }
+        
+        .file-upload.dragover {
+            background: #d4edfa;
+            border-color: #1a5276;
+        }
+        
+        .file-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .file-preview {
+            margin-top: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        
+        .file-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .file-name {
+            flex-grow: 1;
+            font-weight: 500;
+        }
+        
+        .file-size {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-right: 15px;
+        }
+        
+        .remove-file {
+            color: #e74c3c;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #2980b9, #1a5276);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #229954);
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, #229954, #1e8449);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+        
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+        }
+        
+        .btn-info:hover {
+            background: linear-gradient(135deg, #138496, #117a8b);
+        }
+        
+        .tp-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .tp-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+        
+        .tp-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tp-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .tp-card p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .tp-files {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .file-badge {
+            display: inline-block;
+            background: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .file-badge:hover {
+            background: #3498db;
+            color: white;
+        }
+        
+        .tp-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        /* Styles pour statuts */
+        .statut-en-cours {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .statut-terminé {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .statut-à-faire {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        /* Modal pour les détails de matière */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        /* Pied de page */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-top: 50px;
+        }
+        
+        /* Section sauvegarde */
+        .export-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #27ae60;
+        }
+        
+        .backup-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .empty-state p {
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .timeline-item:nth-child(even)::after {
+                left: 18px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 80%;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .matieres-grid, .tp-list, .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .backup-actions {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- ... (كل الـ HTML السابق يبقى كما هو) ... -->
+    <header>
+        <div class="container">
+            <div class="profile-img">KM</div>
+            <h1>Kisra Maroua</h1>
+            <p class="title">Étudiante en Master 2 - Ingénierie de Données et Technologies Web</p>
+            <p>Passionnée par le développement web et les technologies émergentes</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="nav-buttons">
+            <button class="nav-btn active" data-target="apropos">À Propos</button>
+            <button class="nav-btn" data-target="formation">Formation</button>
+            <button class="nav-btn" data-target="matieres">Matières</button>
+            <button class="nav-btn" data-target="tp">Travaux Pratiques</button>
+            <button class="nav-btn" data-target="competences">Compétences</button>
+            <button class="nav-btn" data-target="projets">Projets</button>
+            <button class="nav-btn" data-target="contact">Contact</button>
+        </div>
+        
+        <section id="apropos" class="content-section active">
+            <h2>À Propos de Moi</h2>
+            <p>Je suis actuellement étudiante en Master 2 spécialisé en Ingénierie de Données et Technologies Web. Passionnée par le développement web et les technologies émergentes, je me consacre à l'acquisition de compétences solides en programmation, conception d'algorithmes et développement d'applications web modernes.</p>
+            <p>Mon parcours académique m'a permis de développer une approche méthodique pour résoudre des problèmes complexes et créer des solutions efficaces. Je suis particulièrement intéressée par l'intersection entre les structures de données avancées et les technologies web modernes.</p>
+            <div style="margin-top: 30px;">
+                <h3>Mes centres d'intérêt</h3>
+                <ul style="margin-top: 15px; margin-left: 20px;">
+                    <li>Développement d'applications web interactives</li>
+                    <li>Optimisation des structures de données</li>
+                    <li>Algorithmique et résolution de problèmes complexes</li>
+                    <li>Veille technologique sur les frameworks web modernes</li>
+                    <li>Modélisation 3D avec Blender</li>
+                </ul>
+            </div>
+        </section>
+
+        
+        <section id="formation" class="content-section">
+            <h2>Formation</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Master 2 en ingénierie de Données et Technologies Web</h3>
+                        <span class="date">2025 - 2026</span>
+                        <p>Université de Sétif, Algérie</p>
+                        <p>Spécialisation en ingénierie de données avancées, algorithmes et développement web moderne.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Master 1 en ingénierie de Données et Technologies Web</h3>
+                        <span class="date">2024 - 2025</span>
+                        <p>Université de Sétif, Algérie</p>
+                        <p>Formation approfondie en informatique fondamentale avec focus sur l'algorithmique et les bases de données.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Licence en  systhem d'informatique</h3>
+                        <span class="date">2023 - 2024</span>
+                        <p>Université de Sétif, Algérie</p>
+                        <p>Formation générale en informatique avec initiation aux algorithmes, bases de données et développement web.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Bac</h3>
+                        <span class="date">2020 - 2021</span>
+                        <p>Lycée Maazou Al-Saeed, Ain El Kebira , Sétif, Algérie</p>
+                        <p>Baccalauréat en sciences expérimentales.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="matieres" class="content-section">
+            <h2>Matières Étudiées</h2>
+            <p>Voici les matières que j'ai étudiées durant mon parcours académique. Cliquez sur une matière pour voir plus de détails.</p>
+            
+            <div class="matieres-grid">
+                <div class="matiere-card" data-matiere="algo">
+                    <div class="matiere-header">
+                        <h3>Algorithmique Avancée</h3>
+                    </div>
+                    <div class="matiere-content">
+                        <p><strong>Niveau:</strong> Avancé</p>
+                        <p><strong>Semestre:</strong> S1 et S2</p>
+                        <p>Concepts maîtrisés:</p>
+                        <ul>
+                            <li>Structures de données complexes</li>
+                            <li>Algorithmes de graphes</li>
+                            <li>Optimisation et complexité</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="matiere-card" data-matiere="web3D">
+                    <div class="matiere-header">
+                        <h3>Technologies Web 3D</h3>
+                    </div>
+                    <div class="matiere-content">
+                        <p><strong>Niveau:</strong> Intermédiaire</p>
+                        <p><strong>Semestre:</strong> S3</p>
+                        <p>Technologies apprises:</p>
+                        <ul>
+                            <li>WebGL et Three.js</li>
+                            <li>Rendu 3D dans le navigateur</li>
+                            <li>Interactions utilisateur avancées</li>
+                            <li>Intégration de modèles Blender</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="matiere-card" data-matiere="bd">
+                    <div class="matiere-header">
+                        <h3>Bases de Données Avancées</h3>
+                    </div>
+                    <div class="matiere-content">
+                        <p><strong>Niveau:</strong> Intermédiaire</p>
+                        <p><strong>Semestre:</strong> S2</p>
+                        <p>Concepts étudiés:</p>
+                        <ul>
+                            <li>Bases de données NoSQL</li>
+                            <li>Optimisation des requêtes</li>
+                            <li>Sécurité des données</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="matiere-card" data-matiere="java">
+                    <div class="matiere-header">
+                        <h3>Programmation Java Avancée</h3>
+                    </div>
+                    <div class="matiere-content">
+                        <p><strong>Niveau:</strong> Avancé</p>
+                        <p><strong>Semestre:</strong> S3</p>
+                        <p>Concepts maîtrisés:</p>
+                        <ul>
+                            <li>Programmation multithread</li>
+                            <li>Design patterns</li>
+                            <li>Développement d'applications d'entreprise</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="matiere-card" data-matiere="reseau">
+                    <div class="matiere-header">
+                        <h3>Réseaux et Sécurité</h3>
+                    </div>
+                    <div class="matiere-content">
+                        <p><strong>Niveau:</strong> Intermédiaire</p>
+                        <p><strong>Semestre:</strong> S4</p>
+                        <p>Concepts étudiés:</p>
+                        <ul>
+                            <li>Architectures réseau avancées</li>
+                            <li>Protocoles de sécurité</li>
+                            <li>Cryptographie appliquée</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="matiere-card" data-matiere="ai">
+                    <div class="matiere-header">
+                        <h3>Intelligence Artificielle</h3>
+                    </div>
+                    <div class="matiere-content">
+                        <p><strong>Niveau:</strong> Intermédiaire</p>
+                        <p><strong>Semestre:</strong> S5</p>
+                        <p>Concepts abordés:</p>
+                        <ul>
+                            <li>Algorithmes d'apprentissage automatique</li>
+                            <li>Traitement du langage naturel</li>
+                            <li>Vision par ordinateur</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="tp" class="content-section">
+            <h2>Travaux Pratiques</h2>
+            <p>Cette section me permet de suivre mes travaux pratiques et projets académiques.</p>
+            
+            <div class="tp-container">
+                <div class="tp-form">
+                    <h3>Ajouter un nouveau TP</h3>
+                    <form id="tpForm">
+                        <div class="form-group">
+                            <label for="tpMatiere">Matière:</label>
+                            <select id="tpMatiere" class="form-control" required>
+                                <option value="">Sélectionnez une matière</option>
+                                <option value="Algorithmique Avancée">Algorithmique Avancée</option>
+                                <option value="Technologies Web 3D">Technologies Web 3D</option>
+                                <option value="Bases de Données Avancées">Bases de Données Avancées</option>
+                                <option value="Programmation Java Avancée">Programmation Java Avancée</option>
+                                <option value="Réseaux et Sécurité">Réseaux et Sécurité</option>
+                                <option value="Intelligence Artificielle">Intelligence Artificielle</option>
+                                <option value="Modélisation 3D">Modélisation 3D</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tpTitre">Titre du TP:</label>
+                            <input type="text" id="tpTitre" class="form-control" placeholder="Ex: Implémentation d'un algorithme de tri" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tpDescription">Description:</label>
+                            <textarea id="tpDescription" class="form-control" rows="3" placeholder="Décrivez brièvement le travail pratique..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tpDate">Date de réalisation:</label>
+                            <input type="date" id="tpDate" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tpStatut">Statut:</label>
+                            <select id="tpStatut" class="form-control" required>
+                                <option value="À faire">À faire</option>
+                                <option value="En cours">En cours</option>
+                                <option value="Terminé">Terminé</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Fichiers du TP (optionnel):</label>
+                            <div class="file-upload" id="fileUploadArea">
+                                <p>📁 Glissez-déposez vos fichiers ici ou <strong>cliquez pour parcourir</strong></p>
+                                <p class="file-info">Formats acceptés: .pdf, .doc, .docx, .zip, .rar, .java, .py, .html, .css, .js, .php, .sql, .blend, .obj, .fbx, .stl</p>
+                                <input type="file" id="fileInput" multiple style="display: none;">
+                                <div class="file-preview" id="filePreview" style="display: none;"></div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn">Ajouter le TP</button>
+                    </form>
+                </div>
+                
+                <div class="export-section">
+                    <h3>Sauvegarde et Restauration</h3>
+                    <p>Vous pouvez sauvegarder vos TPs dans un fichier ou les restaurer à partir d'une sauvegarde précédente.</p>
+                    <div class="backup-actions">
+                        <button class="btn btn-warning" id="exportTps">Exporter les TPs</button>
+                        <button class="btn btn-info" id="importTps">Importer des TPs</button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;">
+                        <button class="btn btn-danger" id="clearAllTps">Supprimer tous les TPs</button>
+                    </div>
+                </div>
+                
+                <div class="tp-list-container">
+                    <h3>Mes Travaux Pratiques</h3>
+                    <div class="tp-list" id="tpList">
+                        <!-- Les TP seront ajoutés ici dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="competences" class="content-section">
+            <h2>Compétences Techniques</h2>
+            <div style="margin-bottom: 30px;">
+                <h3>Langages de Programmation</h3>
+                <div class="skills-container">
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">Java</span>
+                    <span class="skill">Python</span>
+                    <span class="skill">HTML/CSS</span>
+                    <span class="skill">SQL</span>
+                    <span class="skill">C++</span>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h3>Frameworks & Bibliothèques</h3>
+                <div class="skills-container">
+                    <span class="skill">React</span>
+                    <span class="skill">Node.js</span>
+                    <span class="skill">Three.js</span>
+                    <span class="skill">Blender</span>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h3>Outils & Technologies</h3>
+                <div class="skills-container">
+                    <span class="skill">Git</span>
+                    <span class="skill">MySQL</span>
+                    <span class="skill">MongoDB</span>
+                    <span class="skill">Docker</span>
+                    <span class="skill">Figma</span>
+                    <span class="skill">Visual Studio Code</span>
+                    <span class="skill">Blender</span>
+                </div>
+            </div>
+            
+            <div>
+                <h3>Langues</h3>
+                <div class="skills-container">
+                    <span class="skill">Arabe (Natif)</span>
+                    <span class="skill">Français (Courant)</span>
+                    <span class="skill">Anglais (Intermédiaire)</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="projets" class="content-section">
+            <h2>Mes Projets</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">🍽️</div>
+                    <div class="project-content">
+                        <h3>ChefBot - Générateur de Recettes</h3>
+                        <p>Application web intelligente utilisant l'IA pour générer des recettes personnalisées basées sur les ingrédients disponibles.</p>
+                        <p><strong>Technologies:</strong> Streamlit, Google Gemini AI, Python, HTML/CSS</p>
+                        <p><strong>Fonctionnalités:</strong> Interface bilingue (FR/AR), génération de recettes, export PDF, sélection d'ingrédients</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">📄</div>
+                    <div class="project-content">
+                        <h3>API de Gestion PDF</h3>
+                        <p>API RESTful pour l'intégration et l'extraction de fichiers PDF avec stockage en base de données.</p>
+                        <p><strong>Technologies:</strong> Flask, PyMuPDF, MongoDB, REST API</p>
+                        <p><strong>Fonctionnalités:</strong> Intégration de PDF, extraction de pièces jointes, hachage de sécurité, documentation Swagger</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">💰</div>
+                    <div class="project-content">
+                        <h3>Gestionnaire de Budget</h3>
+                        <p>Application web de gestion financière personnelle avec algorithmes de tri avancés.</p>
+                        <p><strong>Technologies:</strong> Streamlit, Pandas, Python, CSV</p>
+                        <p><strong>Fonctionnalités:</strong> Suivi des dépenses, tri Mergesort/Quicksort, visualisations, catégorisation</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">🌤️</div>
+                    <div class="project-content">
+                        <h3>Application Météo</h3>
+                        <p>Application web responsive pour la consultation des prévisions météorologiques.</p>
+                        <p><strong>Technologies:</strong> HTML5, CSS3, JavaScript, Chart.js, API OpenWeather</p>
+                        <p><strong>Fonctionnalités:</strong> Géolocalisation, graphiques interactifs, design responsive, recherche par ville</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">🏥</div>
+                    <div class="project-content">
+                        <h3>Plateforme Médicale - Medical Care</h3>
+                        <p>Site web complet pour la gestion des rendez-vous médicaux avec interface patient et médecin.</p>
+                        <p><strong>Technologies:</strong> HTML5, CSS3, JavaScript, PHP, MySQL</p>
+                        <p><strong>Fonctionnalités:</strong> Prise de rendez-vous en ligne, gestion des patients, espace médecin sécurisé, recherche de services médicaux</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="content-section">
+            <h2>Contact</h2>
+            <p>N'hésitez pas à me contacter pour discuter de projets ou d'opportunités de collaboration.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>marouakisra@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div>
+                        <h3>Téléphone</h3>
+                        <p>0664949591</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h3>Adresse</h3>
+                        <p>Ain el kebira, Sétif, Algérie</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🔗</div>
+                    <div>
+                        <h3>Réseaux Sociaux</h3>
+                        <p>LinkedIn: maroua kisra</p>
+                        <p>GitHub: /marouakisra</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; background: #f8f9fa; padding: 30px; border-radius: 10px;">
+                <h3>Disponibilité</h3>
+                <p>Je suis actuellement à la recherche d'un stage de fin d'études ou d'une opportunité d'emploi dans le domaine du développement web et des technologies de l'information.</p>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Modal pour les détails des matières -->
+    <div class="modal" id="matiereModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalContent">
+                <!-- Contenu chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Kisra Maroua - Tous droits réservés</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Dernière mise à jour: Octobre 2023</p>
+        </div>
+    </footer>
 
     <script>
         // Données des matières (pour le modal)
         const matieresData = {
-            // ... (بيانات المواد تبقى كما هي) ...
+            "algo": {
+                titre: "Algorithmique Avancée",
+                description: "L'algorithmique avancée explore les structures de données complexes et les algorithmes efficaces pour résoudre des problèmes computationnels difficiles.",
+                objectifs: [
+                    "Maîtriser les structures de données avancées (arbres, graphes, tables de hachage)",
+                    "Comprendre et implémenter des algorithmes de graphes complexes",
+                    "Analyser la complexité temporelle et spatiale des algorithmes avancés",
+                    "Résoudre des problèmes algorithmiques complexes de manière optimale"
+                ],
+                projets: [
+                    "Implémentation d'algorithmes de plus court chemin (Dijkstra, A*)",
+                    "Conception d'un système de recommandation basé sur des graphes",
+                    "Développement d'un algorithme de compression de données avancé"
+                ]
+            },
+            "web3D": {
+                titre: "Technologies Web 3D",
+                description: "Les technologies Web 3D permettent de créer des expériences interactives et immersives directement dans le navigateur web.",
+                objectifs: [
+                    "Maîtriser les bases de WebGL et Three.js",
+                    "Créer des scènes 3D interactives dans le navigateur",
+                    "Comprendre les principes du rendu 3D temps réel",
+                    "Développer des applications web avec des visualisations 3D complexes",
+                    "Intégrer des modèles 3D créés avec Blender"
+                ],
+                projets: [
+                    "Création d'un visualiseur 3D de molécules chimiques",
+                    "Développement d'un jeu web en 3D",
+                    "Conception d'une interface de configuration de produit en 3D",
+                    "Intégration de modèles Blender dans une application web"
+                ]
+            },
+            "bd": {
+                titre: "Bases de Données Avancées",
+                description: "Les bases de données avancées couvrent les systèmes de gestion de données modernes au-delà du modèle relationnel traditionnel.",
+                objectifs: [
+                    "Comprendre les bases de données NoSQL et leurs cas d'usage",
+                    "Maîtriser les techniques d'optimisation de requêtes complexes",
+                    "Implémenter des stratégies de sécurité et de sauvegarde avancées",
+                    "Concevoir des schémas de bases de données pour des applications à grande échelle"
+                ],
+                projets: [
+                    "Migration d'une base relationnelle vers une base NoSQL",
+                    "Optimisation des performances d'une base de données transactionnelle",
+                    "Conception d'un système de réplication de données"
+                ]
+            },
+            "java": {
+                titre: "Programmation Java Avancée",
+                description: "La programmation Java avancée explore les fonctionnalités enterprise du langage et les patterns de conception pour des applications robustes et évolutives.",
+                objectifs: [
+                    "Maîtriser la programmation concurrente et multithread",
+                    "Comprendre et appliquer les design patterns courants",
+                    "Développer des applications d'entreprise avec Spring Framework",
+                    "Implémenter des services web RESTful avec Java"
+                ],
+                projets: [
+                    "Développement d'un système de traitement de données parallèle",
+                    "Création d'une application e-commerce avec Spring Boot",
+                    "Implémentation d'un système de messagerie en temps réel"
+                ]
+            },
+            "reseau": {
+                titre: "Réseaux et Sécurité",
+                description: "Les réseaux et la sécurité couvrent les architectures réseau modernes et les techniques de protection des systèmes d'information.",
+                objectifs: [
+                    "Comprendre les architectures réseau avancées et les protocoles",
+                    "Maîtriser les principes de la cryptographie appliquée",
+                    "Implémenter des mécanismes de sécurité pour les applications web",
+                    "Analyser et sécuriser les infrastructures réseau"
+                ],
+                projets: [
+                    "Configuration d'un réseau privé virtuel (VPN)",
+                    "Développement d'un système d'authentification sécurisé",
+                    "Audit de sécurité d'une application web"
+                ]
+            },
+            "ai": {
+                titre: "Intelligence Artificielle",
+                description: "L'intelligence artificielle explore les algorithmes permettant aux machines d'apprendre et de résoudre des problèmes complexes.",
+                objectifs: [
+                    "Comprendre les fondamentaux de l'apprentissage automatique",
+                    "Implémenter des algorithmes de classification et de régression",
+                    "Appliquer le traitement du langage naturel à des cas concrets",
+                    "Développer des systèmes de recommandation basés sur l'IA"
+                ],
+                projets: [
+                    "Création d'un classificateur d'images avec apprentissage profond",
+                    "Développement d'un chatbot utilisant le NLP",
+                    "Implémentation d'un système de recommandation de films"
+                ]
+            }
         };
+
+        // Variables globales
+        let selectedFiles = [];
 
         // Gestion de la navigation par boutons
         document.addEventListener('DOMContentLoaded', function() {
@@ -89,7 +1266,6 @@
             // ========== GESTION DES TPs - CODE CORRIGÉ ==========
             
             // Variables pour la gestion des fichiers
-            let selectedFiles = [];
             const fileUploadArea = document.getElementById('fileUploadArea');
             const fileInput = document.getElementById('fileInput');
             const filePreview = document.getElementById('filePreview');
