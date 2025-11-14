@@ -619,6 +619,16 @@
             flex-wrap: wrap;
         }
         
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .empty-state p {
+            margin-bottom: 15px;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .timeline::after {
@@ -669,7 +679,7 @@
 <body>
     <header>
         <div class="container">
-            <img src="mm.jpg" alt="Photo de profil" class="profile-img">
+            <div class="profile-img">KM</div>
             <h1>Kisra Maroua</h1>
             <p class="title">Étudiante en Master 2 - Ingénierie de Données et Technologies Web</p>
             <p>Passionnée par le développement web et les technologies émergentes</p>
@@ -870,12 +880,12 @@
                         
                         <div class="form-group">
                             <label for="tpTitre">Titre du TP:</label>
-                            <input type="text" id="tpTitre" class="form-control" required>
+                            <input type="text" id="tpTitre" class="form-control" placeholder="Ex: Implémentation d'un algorithme de tri" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="tpDescription">Description:</label>
-                            <textarea id="tpDescription" class="form-control" rows="3" required></textarea>
+                            <textarea id="tpDescription" class="form-control" rows="3" placeholder="Décrivez brièvement le travail pratique..." required></textarea>
                         </div>
                         
                         <div class="form-group">
@@ -886,14 +896,14 @@
                         <div class="form-group">
                             <label for="tpStatut">Statut:</label>
                             <select id="tpStatut" class="form-control" required>
+                                <option value="À faire">À faire</option>
                                 <option value="En cours">En cours</option>
                                 <option value="Terminé">Terminé</option>
-                                <option value="À faire">À faire</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label>Fichiers du TP:</label>
+                            <label>Fichiers du TP (optionnel):</label>
                             <div class="file-upload" id="fileUploadArea">
                                 <p>📁 Glissez-déposez vos fichiers ici ou <strong>cliquez pour parcourir</strong></p>
                                 <p class="file-info">Formats acceptés: .pdf, .doc, .docx, .zip, .rar, .java, .py, .html, .css, .js, .php, .sql, .blend, .obj, .fbx, .stl</p>
@@ -1015,16 +1025,9 @@
                 <div class="project-card">
                     <div class="project-img">🏥</div>
                     <div class="project-content">
-                        <span class="project-status status-completed">Terminé</span>
                         <h3>Plateforme Médicale - Medical Care</h3>
                         <p>Site web complet pour la gestion des rendez-vous médicaux avec interface patient et médecin.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">PHP</span>
-                            <span class="tech-tag">MySQL</span>
-                        </div>
+                        <p><strong>Technologies:</strong> HTML5, CSS3, JavaScript, PHP, MySQL</p>
                         <p><strong>Fonctionnalités:</strong> Prise de rendez-vous en ligne, gestion des patients, espace médecin sécurisé, recherche de services médicaux</p>
                     </div>
                 </div>
@@ -1414,18 +1417,20 @@
                 
                 // Convertir les fichiers en base64
                 const filesData = [];
-                for (let file of selectedFiles) {
-                    try {
-                        const base64 = await fileToBase64(file);
-                        filesData.push({
-                            name: file.name,
-                            size: file.size,
-                            type: file.type,
-                            data: base64
-                        });
-                    } catch (error) {
-                        console.error('Erreur de conversion du fichier:', error);
-                        alert(`Erreur lors de la conversion du fichier ${file.name}`);
+                if (selectedFiles.length > 0) {
+                    for (let file of selectedFiles) {
+                        try {
+                            const base64 = await fileToBase64(file);
+                            filesData.push({
+                                name: file.name,
+                                size: file.size,
+                                type: file.type,
+                                data: base64
+                            });
+                        } catch (error) {
+                            console.error('Erreur de conversion du fichier:', error);
+                            alert(`Erreur lors de la conversion du fichier ${file.name}`);
+                        }
                     }
                 }
                 
@@ -1466,7 +1471,12 @@
                 tpList.innerHTML = '';
                 
                 if (tps.length === 0) {
-                    tpList.innerHTML = '<p>Aucun TP enregistré pour le moment.</p>';
+                    tpList.innerHTML = `
+                        <div class="empty-state">
+                            <p>📝 Aucun TP enregistré pour le moment.</p>
+                            <p>Commencez par ajouter votre premier travail pratique en utilisant le formulaire ci-dessus.</p>
+                        </div>
+                    `;
                     return;
                 }
                 
@@ -1660,7 +1670,12 @@
             tpList.innerHTML = '';
             
             if (filteredTps.length === 0) {
-                tpList.innerHTML = '<p>Aucun TP enregistré pour le moment.</p>';
+                tpList.innerHTML = `
+                    <div class="empty-state">
+                        <p>📝 Aucun TP enregistré pour le moment.</p>
+                        <p>Commencez par ajouter votre premier travail pratique en utilisant le formulaire ci-dessus.</p>
+                    </div>
+                `;
                 return;
             }
             
