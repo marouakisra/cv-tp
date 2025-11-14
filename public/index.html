@@ -151,7 +151,7 @@
         }
         
         .timeline-item {
-padding: 10px 40px;
+            padding: 10px 40px;
             position: relative;
             width: 50%;
             box-sizing: border-box;
@@ -308,7 +308,7 @@ padding: 10px 40px;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-transition: transform 0.3s ease;
+            transition: transform 0.3s ease;
             cursor: pointer;
         }
         
@@ -477,7 +477,7 @@ transition: transform 0.3s ease;
             background: white;
             border-radius: 10px;
             padding: 20px;
-box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             border-left: 5px solid #3498db;
             transition: transform 0.3s ease;
         }
@@ -639,7 +639,8 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             <p>Passionnée par le développement web et les technologies émergentes</p>
         </div>
     </header>
-<div class="container">
+    
+    <div class="container">
         <div class="nav-buttons">
             <button class="nav-btn active" data-target="apropos">À Propos</button>
             <button class="nav-btn" data-target="formation">Formation</button>
@@ -707,7 +708,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         
         <section id="matieres" class="content-section">
             <h2>Matières Étudiées</h2>
-<p>Voici les matières que j'ai étudiées durant mon parcours académique. Cliquez sur une matière pour voir plus de détails.</p>
+            <p>Voici les matières que j'ai étudiées durant mon parcours académique. Cliquez sur une matière pour voir plus de détails.</p>
             
             <div class="matieres-grid">
                 <div class="matiere-card" data-matiere="algo">
@@ -793,7 +794,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                 
                 <div class="matiere-card" data-matiere="ai">
                     <div class="matiere-header">
-<h3>Intelligence Artificielle</h3>
+                        <h3>Intelligence Artificielle</h3>
                     </div>
                     <div class="matiere-content">
                         <p><strong>Niveau:</strong> Intermédiaire</p>
@@ -861,7 +862,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                                 <p>📁 Glissez-déposez vos fichiers ici ou <strong>cliquez pour parcourir</strong></p>
                                 <p class="file-info">Formats acceptés: .pdf, .doc, .docx, .zip, .java, .py, .html, .css, .js, .php, .sql, .blend, .obj, .fbx, .stl</p>
                                 <input type="file" id="fileInput" multiple style="display: none;">
-<div class="file-preview" id="filePreview" style="display: none;"></div>
+                                <div class="file-preview" id="filePreview" style="display: none;"></div>
                             </div>
                         </div>
                         
@@ -929,7 +930,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             <h2>Mes Projets</h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-img">🍽</div>
+                    <div class="project-img">🍽️</div>
                     <div class="project-content">
                         <h3>ChefBot - Générateur de Recettes</h3>
                         <p>Application web intelligente utilisant l'IA pour générer des recettes personnalisées basées sur les ingrédients disponibles.</p>
@@ -946,7 +947,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                         <p><strong>Fonctionnalités:</strong> Intégration de PDF, extraction de pièces jointes, hachage de sécurité, documentation Swagger</p>
                     </div>
                 </div>
-<div class="project-card">
+                <div class="project-card">
                     <div class="project-img">💰</div>
                     <div class="project-content">
                         <h3>Gestionnaire de Budget</h3>
@@ -956,7 +957,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-img">🌤</div>
+                    <div class="project-img">🌤️</div>
                     <div class="project-content">
                         <h3>Application Météo</h3>
                         <p>Application web responsive pour la consultation des prévisions météorologiques.</p>
@@ -1026,7 +1027,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                 <p>Je suis actuellement à la recherche d'un stage de fin d'études ou d'une opportunité d'emploi dans le domaine du développement web et des technologies de l'information.</p>
             </div>
         </section>
-</div>
+    </div>
     
     <!-- Modal pour les détails des matières -->
     <div class="modal" id="matiereModal">
@@ -1101,7 +1102,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                 objectifs: [
                     "Maîtriser la programmation concurrente et multithread",
                     "Comprendre et appliquer les design patterns courants",
-"Développer des applications d'entreprise avec Spring Framework",
+                    "Développer des applications d'entreprise avec Spring Framework",
                     "Implémenter des services web RESTful avec Java"
                 ],
                 projets: [
@@ -1141,7 +1142,8 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                 ]
             }
         };
-// Gestion de la navigation par boutons
+
+        // Gestion de la navigation par boutons
         document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('.nav-btn');
             const sections = document.querySelectorAll('.content-section');
@@ -1176,22 +1178,22 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                     const matiere = matieresData[matiereId];
                     
                     if (matiere) {
-                        let content = <h2>${matiere.titre}</h2>;
-                        content += <p>${matiere.description}</p>;
+                        let content = `<h2>${matiere.titre}</h2>`;
+                        content += `<p>${matiere.description}</p>`;
                         
-                        content += <h3>Objectifs d'apprentissage</h3>;
-                        content += <ul>;
+                        content += `<h3>Objectifs d'apprentissage</h3>`;
+                        content += `<ul>`;
                         matiere.objectifs.forEach(objectif => {
-                            content += <li>${objectif}</li>;
+                            content += `<li>${objectif}</li>`;
                         });
-                        content += </ul>;
+                        content += `</ul>`;
                         
-                        content += <h3>Projets réalisés</h3>;
-                        content += <ul>;
+                        content += `<h3>Projets réalisés</h3>`;
+                        content += `<ul>`;
                         matiere.projets.forEach(projet => {
-                            content += <li>${projet}</li>;
+                            content += `<li>${projet}</li>`;
                         });
-                        content += </ul>;
+                        content += `</ul>`;
                         
                         modalContent.innerHTML = content;
                         modal.style.display = 'flex';
@@ -1230,7 +1232,7 @@ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             });
             
             // Gérer le drag and drop
-fileUploadArea.addEventListener('dragover', function(e) {
+            fileUploadArea.addEventListener('dragover', function(e) {
                 e.preventDefault();
                 fileUploadArea.classList.add('dragover');
             });
@@ -1250,7 +1252,7 @@ fileUploadArea.addEventListener('dragover', function(e) {
                     // Vérifier l'extension
                     const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
                     if (!allowedExtensions.includes(fileExtension)) {
-                        alert(Le format ${fileExtension} n'est pas autorisé. Formats acceptés: ${allowedExtensions.join(', ')});
+                        alert(`Le format ${fileExtension} n'est pas autorisé. Formats acceptés: ${allowedExtensions.join(', ')}`);
                         continue;
                     }
                     
@@ -1316,7 +1318,8 @@ fileUploadArea.addEventListener('dragover', function(e) {
             // Gestion du formulaire TP
             const tpForm = document.getElementById('tpForm');
             const tpList = document.getElementById('tpList');
-// Charger les TPs depuis le serveur au démarrage
+            
+            // Charger les TPs depuis le serveur au démarrage
             function loadTpsFromServer() {
                 fetch('/api/tps')
                     .then(r => r.json())
@@ -1375,8 +1378,8 @@ fileUploadArea.addEventListener('dragover', function(e) {
             
             function renderTpsFromArray(tps) {
                 tpList.innerHTML = '';
-
-if (!tps  tps.length === 0) {
+                
+                if (!tps || tps.length === 0) {
                     tpList.innerHTML = '<p>Aucun TP enregistré pour le moment.</p>';
                     return;
                 }
@@ -1462,8 +1465,7 @@ if (!tps  tps.length === 0) {
             fetch(`/api/tps/${id}`, { method: 'DELETE' })
                 .then(resp => {
                     if (!resp.ok) throw new Error('Erreur suppression');
-                    return resp.js
-on();
+                    return resp.json();
                 })
                 .then(() => {
                     alert('TP supprimé.');
@@ -1471,7 +1473,7 @@ on();
                     fetch('/api/tps').then(r => r.json()).then(tps => {
                         const tpList = document.getElementById('tpList');
                         tpList.innerHTML = '';
-                        if (!tps  tps.length === 0) {
+                        if (!tps || tps.length === 0) {
                             tpList.innerHTML = '<p>Aucun TP enregistré pour le moment.</p>';
                             return;
                         }
@@ -1484,7 +1486,7 @@ on();
                             if (tp.files && tp.files.length > 0) {
                                 filesHtml = '<div class="tp-files"><strong>Fichiers:</strong><br>';
                                 tp.files.forEach(file => {
-                                    filesHtml += <a class="file-badge" href="${file.url}" target="_blank" rel="noopener noreferrer">${file.originalName}</a>;
+                                    filesHtml += `<a class="file-badge" href="${file.url}" target="_blank" rel="noopener noreferrer">${file.originalName}</a>`;
                                 });
                                 filesHtml += '</div>';
                             }
