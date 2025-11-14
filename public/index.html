@@ -5,7 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Kisra Maroua</title>
     <style>
-        /* Styles généraux */
+        /* إضافة أنماط جديدة لمشاركة الرابط */
+        .share-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #9b59b6;
+        }
+        
+        .share-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .share-link {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: linear-gradient(135deg, #8e44ad, #7d3c98);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* بقية الأنماط تبقى كما هي */
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +87,6 @@
             padding: 20px;
         }
         
-        /* Navigation par boutons */
         .nav-buttons {
             display: flex;
             justify-content: center;
@@ -59,7 +120,6 @@
             transform: scale(1.05);
         }
         
-        /* Sections de contenu */
         .content-section {
             display: none;
             background: white;
@@ -79,7 +139,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* En-tête */
         header {
             background: linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
@@ -116,7 +175,6 @@
             margin-bottom: 20px;
         }
         
-        /* Sections */
         h2 {
             color: #2c3e50;
             border-bottom: 3px solid #3498db;
@@ -131,7 +189,6 @@
             font-size: 1.5rem;
         }
         
-        /* Expériences et formations */
         .timeline {
             position: relative;
             max-width: 800px;
@@ -206,7 +263,6 @@
             font-size: 0.9rem;
         }
         
-        /* Compétences */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -228,7 +284,6 @@
             transform: scale(1.05);
         }
         
-        /* Contact */
         .contact-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -256,7 +311,6 @@
             color: #3498db;
         }
         
-        /* Projets */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -295,7 +349,6 @@
             margin-bottom: 10px;
         }
         
-        /* Section Matières */
         .matieres-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -336,7 +389,6 @@
             margin-bottom: 8px;
         }
         
-        /* Section TP */
         .tp-container {
             margin-top: 30px;
         }
@@ -527,7 +579,6 @@
             margin-top: 15px;
         }
         
-        /* Styles pour statuts */
         .statut-en-cours {
             color: #f39c12;
             font-weight: bold;
@@ -543,7 +594,6 @@
             font-weight: bold;
         }
         
-        /* Modal pour les détails de matière */
         .modal {
             display: none;
             position: fixed;
@@ -578,7 +628,6 @@
             color: #7f8c8d;
         }
         
-        /* Pied de page */
         footer {
             text-align: center;
             padding: 30px;
@@ -587,7 +636,6 @@
             margin-top: 50px;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .timeline::after {
                 left: 31px;
@@ -626,6 +674,14 @@
             
             .matieres-grid, .tp-list, .projects-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .share-actions {
+                flex-direction: column;
+            }
+            
+            .share-link {
+                width: 100%;
             }
         }
     </style>
@@ -870,6 +926,18 @@
                     </form>
                 </div>
                 
+                <!-- قسم مشاركة الرابط -->
+                <div class="share-section">
+                    <h3>Partager mes TPs</h3>
+                    <p>Générez un lien unique pour partager vos travaux pratiques avec d'autres personnes. Ce lien contiendra tous vos TPs.</p>
+                    <div class="share-actions">
+                        <input type="text" class="share-link" id="shareLink" readonly placeholder="Cliquez sur 'Générer le lien' pour créer un lien de partage">
+                        <button class="copy-btn" id="generateLink">Générer le lien</button>
+                        <button class="copy-btn" id="copyLink">Copier</button>
+                    </div>
+                    <p class="file-info" style="margin-top: 10px;">Le lien généré sera valide pendant 30 jours et permettra à d'autres de voir vos TPs.</p>
+                </div>
+                
                 <div class="tp-list-container">
                     <h3>Mes Travaux Pratiques</h3>
                     <div class="tp-list" id="tpList">
@@ -979,10 +1047,8 @@
                             <span class="tech-tag">MySQL</span>
                         </div>
                         <p><strong>Fonctionnalités:</strong> Prise de rendez-vous en ligne, gestion des patients, espace médecin sécurisé, recherche de services médicaux</p>
-                
                     </div>
-                
-            
+                </div>
             </div>
         </section>
         
@@ -1039,6 +1105,11 @@
         </div>
     </div>
     
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Lien copié avec succès!
+    </div>
+    
     <footer>
         <div class="container">
             <p>© 2023 Kisra Maroua - Tous droits réservés</p>
@@ -1047,7 +1118,7 @@
     </footer>
 
     <script>
-        // إضافة USER_ID في أعلى السكريبت كما طلبت
+        // إضافة USER_ID في أعلى السكريبت
         const USER_ID = "maroua_kisra";
 
         // Données des matières (pour le modal)
@@ -1221,7 +1292,7 @@
             const filePreview = document.getElementById('filePreview');
             let selectedFiles = [];
             
-            // Extensions autorisées (incluant maintenant les formats Blender)
+            // Extensions autorisées
             const allowedExtensions = ['.pdf', '.doc', '.docx', '.zip', '.java', '.py', '.html', '.css', '.js', '.php', '.sql', '.blend', '.obj', '.fbx', '.stl'];
             
             // Ouvrir le sélecteur de fichiers en cliquant sur la zone
@@ -1322,15 +1393,10 @@
             const tpForm = document.getElementById('tpForm');
             const tpList = document.getElementById('tpList');
             
-            // Charger les TPs depuis le serveur au démarrage - تم التعديل هنا
-            function loadTpsFromServer() {
-                fetch(`/api/tps?user=${USER_ID}`)
-                    .then(r => r.json())
-                    .then(tps => renderTpsFromArray(tps))
-                    .catch(err => {
-                        console.error('Erreur chargement TPs:', err);
-                        tpList.innerHTML = '<p>Impossible de charger les TPs.</p>';
-                    });
+            // Charger les TPs depuis localStorage au démarrage
+            function loadTpsFromStorage() {
+                const tps = JSON.parse(localStorage.getItem('maroua_tps')) || [];
+                renderTpsFromArray(tps);
             }
             
             tpForm.addEventListener('submit', function(e) {
@@ -1342,43 +1408,66 @@
                 const date = document.getElementById('tpDate').value;
                 const statut = document.getElementById('tpStatut').value;
                 
-                // Préparer FormData
-                const formData = new FormData();
-                formData.append('matiere', matiere);
-                formData.append('titre', titre);
-                formData.append('description', description);
-                formData.append('date', date);
-                formData.append('statut', statut);
-                formData.append('user', USER_ID); // تمت إضافة هذا السطر كما طلبت
+                // Créer le nouvel objet TP
+                const newTp = {
+                    id: generateId(),
+                    matiere,
+                    titre,
+                    description,
+                    date,
+                    statut,
+                    files: [],
+                    createdAt: new Date().toISOString()
+                };
                 
-                // selectedFiles est un array d'objets File (comme défini dans ton script)
-                selectedFiles.forEach(file => {
-                    formData.append('files', file, file.name);
-                });
-                
-                // Envoyer au serveur
-                fetch('/api/tps', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(resp => {
-                    if (!resp.ok) throw new Error('Erreur upload');
-                    return resp.json();
-                })
-                .then(data => {
-                    alert('TP ajouté avec succès sur le serveur !');
-                    // réinitialiser formulaire + preview local
-                    tpForm.reset();
-                    selectedFiles = [];
-                    updateFilePreview();
-                    // recharger la liste des TPs depuis le serveur
-                    loadTpsFromServer();
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Erreur lors de l\'upload vers le serveur');
-                });
+                // Convertir les fichiers en base64
+                if (selectedFiles.length > 0) {
+                    const filePromises = selectedFiles.map(file => fileToBase64(file));
+                    
+                    Promise.all(filePromises)
+                        .then(base64Files => {
+                            base64Files.forEach((base64, index) => {
+                                newTp.files.push({
+                                    name: selectedFiles[index].name,
+                                    size: selectedFiles[index].size,
+                                    type: selectedFiles[index].type,
+                                    data: base64
+                                });
+                            });
+                            
+                            // Sauvegarder le TP
+                            saveTp(newTp);
+                        })
+                        .catch(error => {
+                            console.error('Erreur conversion fichiers:', error);
+                            alert('Erreur lors de la conversion des fichiers');
+                        });
+                } else {
+                    // Sauvegarder le TP sans fichiers
+                    saveTp(newTp);
+                }
             });
+            
+            function saveTp(tp) {
+                // Récupérer les TPs existants
+                const existingTps = JSON.parse(localStorage.getItem('maroua_tps')) || [];
+                
+                // Ajouter le nouveau TP
+                existingTps.push(tp);
+                
+                // Sauvegarder dans localStorage
+                localStorage.setItem('maroua_tps', JSON.stringify(existingTps));
+                
+                // Recharger l'affichage
+                renderTpsFromArray(existingTps);
+                
+                // Réinitialiser le formulaire
+                tpForm.reset();
+                selectedFiles = [];
+                updateFilePreview();
+                
+                alert('TP ajouté avec succès!');
+            }
             
             function renderTpsFromArray(tps) {
                 tpList.innerHTML = '';
@@ -1398,9 +1487,8 @@
                     let filesHtml = '';
                     if (tp.files && tp.files.length > 0) {
                         filesHtml = '<div class="tp-files"><strong>Fichiers:</strong><br>';
-                        tp.files.forEach(file => {
-                            // file.url fourni par le serveur (ex: /uploads/<savedName>)
-                            filesHtml += `<a class="file-badge" href="${file.url}" target="_blank" rel="noopener noreferrer">${file.originalName}</a>`;
+                        tp.files.forEach((file, index) => {
+                            filesHtml += `<a class="file-badge" href="#" data-tp-id="${tp.id}" data-file-index="${index}">${file.name}</a>`;
                         });
                         filesHtml += '</div>';
                     }
@@ -1413,10 +1501,121 @@
                         <p>${tp.description}</p>
                         ${filesHtml}
                         <div class="tp-actions">
-                            <button class="btn btn-danger" onclick="deleteTpServer(${tp.id})">Supprimer</button>
+                            <button class="btn btn-danger" onclick="deleteTp('${tp.id}')">Supprimer</button>
                         </div>
                     `;
                     tpList.appendChild(tpCard);
+                });
+                
+                // Ajouter les événements pour télécharger les fichiers
+                document.querySelectorAll('.file-badge').forEach(badge => {
+                    badge.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const tpId = this.getAttribute('data-tp-id');
+                        const fileIndex = parseInt(this.getAttribute('data-file-index'));
+                        downloadFile(tpId, fileIndex);
+                    });
+                });
+            }
+            
+            // Gestion de la génération et copie du lien
+            const generateLinkBtn = document.getElementById('generateLink');
+            const copyLinkBtn = document.getElementById('copyLink');
+            const shareLinkInput = document.getElementById('shareLink');
+            const notification = document.getElementById('notification');
+            
+            generateLinkBtn.addEventListener('click', function() {
+                const tps = JSON.parse(localStorage.getItem('maroua_tps')) || [];
+                
+                if (tps.length === 0) {
+                    alert('Aucun TP à partager. Ajoutez d\'abord des TPs.');
+                    return;
+                }
+                
+                // Créer un identifiant unique pour cette session de partage
+                const shareId = generateShareId();
+                
+                // Sauvegarder les TPs avec cet identifiant
+                localStorage.setItem(`share_${shareId}`, JSON.stringify({
+                    tps: tps,
+                    createdAt: new Date().toISOString(),
+                    expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 jours
+                }));
+                
+                // Générer le lien
+                const currentUrl = window.location.href.split('?')[0];
+                const shareUrl = `${currentUrl}?share=${shareId}#tp`;
+                
+                shareLinkInput.value = shareUrl;
+                
+                alert('Lien de partage généré! Copiez-le pour le partager.');
+            });
+            
+            copyLinkBtn.addEventListener('click', function() {
+                if (!shareLinkInput.value) {
+                    alert('Générez d\'abord un lien de partage.');
+                    return;
+                }
+                
+                shareLinkInput.select();
+                document.execCommand('copy');
+                
+                // Afficher la notification
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            });
+            
+            // Vérifier s'il y a un paramètre de partage dans l'URL
+            function checkForShareParameter() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const shareId = urlParams.get('share');
+                
+                if (shareId) {
+                    const sharedData = JSON.parse(localStorage.getItem(`share_${shareId}`));
+                    
+                    if (sharedData) {
+                        // Vérifier si le lien a expiré
+                        if (new Date(sharedData.expiresAt) < new Date()) {
+                            alert('Ce lien de partage a expiré.');
+                            return;
+                        }
+                        
+                        // Afficher les TPs partagés
+                        renderTpsFromArray(sharedData.tps);
+                        
+                        // Désactiver le formulaire d'ajout
+                        tpForm.style.display = 'none';
+                        
+                        // Afficher un message
+                        const message = document.createElement('div');
+                        message.innerHTML = '<div style="background: #e8f4fc; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #3498db;"><strong>Mode visualisation:</strong> Vous visualisez les TPs partagés. Vous ne pouvez pas les modifier.</div>';
+                        tpForm.parentNode.insertBefore(message, tpForm);
+                        
+                        // Masquer la section de partage
+                        document.querySelector('.share-section').style.display = 'none';
+                    } else {
+                        alert('Lien de partage invalide ou expiré.');
+                    }
+                }
+            }
+            
+            // Fonctions utilitaires
+            function generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            }
+            
+            function generateShareId() {
+                return 'share_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+            }
+            
+            function fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
                 });
             }
             
@@ -1460,60 +1659,99 @@
             });
 
             // Lancer le chargement initial des TPs
-            loadTpsFromServer();
+            loadTpsFromStorage();
+            
+            // Vérifier les paramètres de partage
+            checkForShareParameter();
         });
         
-        // Fonction globale pour supprimer un TP côté serveur - تم التعديل هنا
-        function deleteTpServer(id) {
-            if (!confirm('Êtes-vous sûr de vouloir supprimer ce TP?')) return;
-            fetch(`/api/tps/${id}?user=${USER_ID}`, { method: 'DELETE' })
-                .then(resp => {
-                    if (!resp.ok) throw new Error('Erreur suppression');
-                    return resp.json();
-                })
-                .then(() => {
-                    alert('TP supprimé.');
-                    // recharger la liste
-                    fetch(`/api/tps?user=${USER_ID}`).then(r => r.json()).then(tps => {
-                        const tpList = document.getElementById('tpList');
-                        tpList.innerHTML = '';
-                        if (!tps || tps.length === 0) {
-                            tpList.innerHTML = '<p>Aucun TP enregistré pour le moment.</p>';
-                            return;
-                        }
-                        // reuse rendering
-                        tps.sort((a,b)=> new Date(b.date) - new Date(a.date));
-                        tps.forEach(tp => {
-                            const tpCard = document.createElement('div');
-                            tpCard.className = 'tp-card';
-                            let filesHtml = '';
-                            if (tp.files && tp.files.length > 0) {
-                                filesHtml = '<div class="tp-files"><strong>Fichiers:</strong><br>';
-                                tp.files.forEach(file => {
-                                    filesHtml += `<a class="file-badge" href="${file.url}" target="_blank" rel="noopener noreferrer">${file.originalName}</a>`;
-                                });
-                                filesHtml += '</div>';
-                            }
-                            tpCard.innerHTML = `
-                                <h4>${tp.titre}</h4>
-                                <p><strong>Matière:</strong> ${tp.matiere}</p>
-                                <p><strong>Date:</strong> ${new Date(tp.date).toLocaleDateString('fr-FR')}</p>
-                                <p><strong>Statut:</strong> <span class="statut-${tp.statut.replace(' ', '-').toLowerCase()}">${tp.statut}</span></p>
-                                <p>${tp.description}</p>
-                                ${filesHtml}
-                                <div class="tp-actions">
-                                    <button class="btn btn-danger" onclick="deleteTpServer(${tp.id})">Supprimer</button>
-                                </div>
-                            `;
-                            document.getElementById('tpList').appendChild(tpCard);
-                        });
-                    });
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Impossible de supprimer le TP.');
-                });
+        // Fonctions globales
+        function downloadFile(tpId, fileIndex) {
+            const tps = JSON.parse(localStorage.getItem('maroua_tps')) || [];
+            const tp = tps.find(t => t.id === tpId);
+            
+            if (tp && tp.files && tp.files[fileIndex]) {
+                const file = tp.files[fileIndex];
+                const byteString = atob(file.data.split(',')[1]);
+                const mimeString = file.data.split(',')[0].split(':')[1].split(';')[0];
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                const blob = new Blob([ab], {type: mimeString});
+                
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = file.name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
         }
+        
+        function deleteTp(id) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce TP?')) return;
+            
+            const tps = JSON.parse(localStorage.getItem('maroua_tps')) || [];
+            const filteredTps = tps.filter(tp => tp.id !== id);
+            
+            localStorage.setItem('maroua_tps', JSON.stringify(filteredTps));
+            
+            // Recharger l'affichage
+            const tpList = document.getElementById('tpList');
+            tpList.innerHTML = '';
+            
+            if (filteredTps.length === 0) {
+                tpList.innerHTML = '<p>Aucun TP enregistré pour le moment.</p>';
+                return;
+            }
+            
+            filteredTps.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            filteredTps.forEach(tp => {
+                const tpCard = document.createElement('div');
+                tpCard.className = 'tp-card';
+                
+                let filesHtml = '';
+                if (tp.files && tp.files.length > 0) {
+                    filesHtml = '<div class="tp-files"><strong>Fichiers:</strong><br>';
+                    tp.files.forEach((file, index) => {
+                        filesHtml += `<a class="file-badge" href="#" data-tp-id="${tp.id}" data-file-index="${index}">${file.name}</a>`;
+                    });
+                    filesHtml += '</div>';
+                }
+                
+                tpCard.innerHTML = `
+                    <h4>${tp.titre}</h4>
+                    <p><strong>Matière:</strong> ${tp.matiere}</p>
+                    <p><strong>Date:</strong> ${new Date(tp.date).toLocaleDateString('fr-FR')}</p>
+                    <p><strong>Statut:</strong> <span class="statut-${tp.statut.replace(' ', '-').toLowerCase()}">${tp.statut}</span></p>
+                    <p>${tp.description}</p>
+                    ${filesHtml}
+                    <div class="tp-actions">
+                        <button class="btn btn-danger" onclick="deleteTp('${tp.id}')">Supprimer</button>
+                    </div>
+                `;
+                tpList.appendChild(tpCard);
+            });
+            
+            // Réattacher les événements de téléchargement
+            document.querySelectorAll('.file-badge').forEach(badge => {
+                badge.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tpId = this.getAttribute('data-tp-id');
+                    const fileIndex = parseInt(this.getAttribute('data-file-index'));
+                    downloadFile(tpId, fileIndex);
+                });
+            });
+        }
+        
+        // جعل الدوال متاحة عالمياً
+        window.deleteTp = deleteTp;
+        window.downloadFile = downloadFile;
     </script>
 </body>
 </html>
